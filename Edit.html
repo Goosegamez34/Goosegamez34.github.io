@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Code Tester</title>
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; height: 100vh; margin: 0; background: #f4f4f4; }
+        header { background: #24292e; color: white; padding: 15px; text-align: center; font-weight: bold; }
+        .container { display: flex; flex: 1; overflow: hidden; gap: 5px; padding: 10px; }
+        .editor-side, .output-side { flex: 1; display: flex; flex-direction: column; }
+        textarea { flex: 1; font-family: 'Courier New', monospace; font-size: 14px; padding: 10px; resize: none; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 10px; }
+        iframe { flex: 1; border: 1px solid #ddd; background: white; border-radius: 4px; }
+        label { font-size: 0.9em; color: #555; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
+        button { background: #2ea44f; color: white; border: none; padding: 12px; cursor: pointer; font-size: 16px; border-radius: 6px; font-weight: bold; transition: 0.2s; }
+        button:hover { background: #2c974b; }
+    </style>
+</head>
+<body>
+
+<header>My GitHub Code Tester</header>
+
+<div class="container">
+    <div class="editor-side">
+        <label>HTML</label>
+        <textarea id="html-code" placeholder="Enter HTML..."><h1 id='msg'>Hello GitHub!</h1></textarea>
+        
+        <label>JavaScript</label>
+        <textarea id="js-code" placeholder="Enter JS...">document.getElementById('msg').style.color = 'blue';</textarea>
+        
+        <button onclick="runCode()">Run & Update</button>
+    </div>
+
+    <div class="output-side">
+        <label>Live Preview</label>
+        <iframe id="output-frame"></iframe>
+    </div>
+</div>
+
+<script>
+    function runCode() {
+        const html = document.getElementById("html-code").value;
+        const js = "<script>" + document.getElementById("js-code").value + "<\/script>";
+        const output = document.getElementById("output-frame").contentWindow.document;
+
+        output.open();
+        output.write(html + js);
+        output.close();
+    }
+    // Run on load
+    window.onload = runCode;
+</script>
+
+</body>
+</html>
