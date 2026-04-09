@@ -17,20 +17,33 @@
 <!-- Place this where you want the clock to appear -->
 <div id="clock">Loading...</div>
 <script>
-    function main() {
+function main() {
+    // 1. Check if they have already passed the test before
+    if (localStorage.getItem('isAuthorized') === 'true') {
+        var a = window.prompt("Who are you?");
+        return; // Stops the rest of the function from running
+    }
+
+    // 2. If not authorized, ask for the password
     var q = window.prompt("Password?");
-    // The binary translates to "FNAER"
+    
+    // Your original binary password (translates to "FNAER")
     if (q === "01000110 01001110 01000001 01000101 01010010") {
+        
+        // 3. Set the 'cookie' so they don't have to do this again
+        localStorage.setItem('isAuthorized', 'true');
+        
         var a = window.prompt("Who are you?");
     } else {
+        // Your original prank loop
         while (true) {
             alert("YOU ARE THE BIGGEST IDIOT IN THE WORLD!");
         }
     }
 }
 main();
-
 </script>
+
 <script>
   function updateClock() {
     const now = new Date();
